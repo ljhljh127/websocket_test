@@ -4,3 +4,7 @@ numpy
 opencv-python==4.8.0.76
 websocket-client==1.6.2
 websockets==11.0.3
+fastapi
+pydantic
+uvicorn
+jinja2 

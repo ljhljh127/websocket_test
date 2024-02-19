@@ -25,12 +25,15 @@ class RTSPRequest(BaseModel):
 @app.post("/")
 async def create_rtspsession(rtsp_request: RTSPRequest):
     rtsp_url = rtsp_request.rtsp_url
-    await asyncio.gather(
-        server.start_server(),
-        client.start_client()
-    )
+    asyncio.create_task(server.start_server())
+    frame=asyncio.create_task(client.start_client())
+    print(frame)
+    return {"frame": frame}
 
-    return {"rtsp_url": rtsp_url}
+
+@app.post("/test")
+def test2():
+    print("하이")
 
 
 

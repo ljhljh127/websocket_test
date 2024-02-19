@@ -36,13 +36,14 @@ async def receive_and_display_frames():
                     is_processing = True
 
                     frame_count += 1
-                    print(f"Received frame {frame_count}...")
+                    # print(f"Received frame {frame_count}...")
 
                     try:
                         # Decode the base64 frame and display it
                         frame_data = base64.b64decode(base64_frame)
                         frame_np = np.frombuffer(frame_data, np.uint8)
                         frame = cv2.imdecode(frame_np, cv2.IMREAD_GRAYSCALE)
+                        return frame
                         # cv2.imshow("Frame", frame)
                         cv2.waitKey(1)  # Adjust the delay as needed
                     except Exception as e:
@@ -59,5 +60,5 @@ async def receive_and_display_frames():
 
             
 async def start_client():
-    await receive_and_display_frames()
-
+    while True:
+        await receive_and_display_frames()

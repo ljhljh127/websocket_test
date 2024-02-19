@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket RTSP</title>
+</head>
+<body>
+    <h1>WebSocket RTSP</h1>
+    <img id="videoFrame" alt="Video Frame">
+    <script>
+        var ws = new WebSocket("ws://localhost:8000/ws");
+        var videoFrame = document.getElementById("videoFrame");
+
+        ws.onopen = function(event) {
+            var videoLink = "rtsp://210.99.70.120:1935/live/cctv007.stream";
+            ws.send(videoLink);
+        };
+
+        ws.onmessage = function(event) {
+            var base64Frame = event.data;
+
+            // Set the base64 frame as the source of the image
+            videoFrame.src = "data:image/jpeg;base64," + base64Frame;
+        };
+    </script>
+</body>
+</html>
